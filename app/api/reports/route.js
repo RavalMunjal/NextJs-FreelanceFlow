@@ -9,10 +9,10 @@ import {
   buildProjectStatusDistribution,
   buildClientEarningsList,
 } from "@/lib/reports";
-import { paiseToRupees } from "@/lib/calculations";
 import mongoose from "mongoose";
 
 export const runtime = "nodejs";
+export const dynamic = "force-dynamic";
 
 /**
  * GET /api/reports

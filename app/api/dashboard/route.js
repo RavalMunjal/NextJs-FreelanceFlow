@@ -8,6 +8,7 @@ import { jsonResponse } from "@/lib/utils";
 import { buildMonthlyRevenueSeries, buildProjectStatusDistribution } from "@/lib/reports";
 
 export const runtime = "nodejs";
+export const dynamic = "force-dynamic";
 
 /**
  * GET /api/dashboard

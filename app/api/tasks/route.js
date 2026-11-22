@@ -7,6 +7,7 @@ import { calculateProgress } from "@/lib/calculations";
 import mongoose from "mongoose";
 
 export const runtime = "nodejs";
+export const dynamic = "force-dynamic";
 
 /**
  * GET /api/tasks
@@ -79,7 +80,6 @@ export async function POST(request) {
       return jsonResponse(false, "Valid project reference is required", null, 400);
     }
 
-    // Verify project exists
     const projectRecord = await Project.findById(project);
     if (!projectRecord) {
       return jsonResponse(false, "Selected project does not exist", null, 404);
@@ -103,7 +103,6 @@ export async function POST(request) {
     const updatedProgress = calculateProgress(allProjectTasks);
     await Project.findByIdAndUpdate(project, { progress: updatedProgress });
 
-    // Populate project info
     await newTask.populate("project", "title status");
 
     // Log Activity

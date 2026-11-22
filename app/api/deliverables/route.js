@@ -6,6 +6,7 @@ import { logActivity } from "@/lib/activity";
 import mongoose from "mongoose";
 
 export const runtime = "nodejs";
+export const dynamic = "force-dynamic";
 
 /**
  * GET /api/deliverables
@@ -73,7 +74,6 @@ export async function POST(request) {
       return jsonResponse(false, "Selected project does not exist", null, 404);
     }
 
-    // Validate URL if provided
     if (fileUrl && fileUrl.trim()) {
       const urlPattern = /^https?:\/\/.+/i;
       if (!urlPattern.test(fileUrl.trim())) {

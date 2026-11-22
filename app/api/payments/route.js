@@ -3,10 +3,11 @@ import Payment from "@/models/Payment";
 import Project from "@/models/Project";
 import { jsonResponse } from "@/lib/utils";
 import { logActivity } from "@/lib/activity";
-import { rupeesToPaise, paiseToRupees, calculatePaymentSummary } from "@/lib/calculations";
+import { rupeesToPaise, paiseToRupees } from "@/lib/calculations";
 import mongoose from "mongoose";
 
 export const runtime = "nodejs";
+export const dynamic = "force-dynamic";
 
 /**
  * GET /api/payments
@@ -44,7 +45,6 @@ export async function GET(request) {
       if (endDate) query.paymentDate.$lte = new Date(endDate);
     }
 
-    // Populate project and project's client
     let payments = await Payment.find(query)
       .populate({
         path: "project",
@@ -56,7 +56,6 @@ export async function GET(request) {
       })
       .sort({ paymentDate: -1, createdAt: -1 });
 
-    // If filtered by client, filter in memory if needed
     if (clientId && mongoose.Types.ObjectId.isValid(clientId)) {
       payments = payments.filter((p) => {
         const cId = p.project?.client?._id?.toString() || p.project?.client?.toString();

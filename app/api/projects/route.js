@@ -7,6 +7,7 @@ import { rupeesToPaise } from "@/lib/calculations";
 import mongoose from "mongoose";
 
 export const runtime = "nodejs";
+export const dynamic = "force-dynamic";
 
 /**
  * GET /api/projects
@@ -25,22 +26,18 @@ export async function GET(request) {
 
     const query = {};
 
-    // Filter by client
     if (clientId && mongoose.Types.ObjectId.isValid(clientId)) {
       query.client = clientId;
     }
 
-    // Filter by status
     if (status) {
       query.status = status;
     }
 
-    // Filter by priority
     if (priority) {
       query.priority = priority;
     }
 
-    // Search by title or description
     if (search.trim()) {
       query.$or = [
         { title: { $regex: search.trim(), $options: "i" } },
@@ -48,8 +45,7 @@ export async function GET(request) {
       ];
     }
 
-    // Sorting options
-    let sortOption = { createdAt: -1 }; // default newest
+    let sortOption = { createdAt: -1 };
     if (sort === "deadline") {
       sortOption = { deadline: 1 };
     } else if (sort === "budget") {
@@ -90,7 +86,6 @@ export async function POST(request) {
       status,
     } = body;
 
-    // Validation
     if (!title || !title.trim()) {
       return jsonResponse(false, "Project title is required", null, 400);
     }
@@ -99,7 +94,6 @@ export async function POST(request) {
       return jsonResponse(false, "A valid client must be selected", null, 400);
     }
 
-    // Ensure selected client actually exists
     const clientRecord = await Client.findById(client);
     if (!clientRecord) {
       return jsonResponse(false, "Selected client does not exist", null, 404);
@@ -120,7 +114,6 @@ export async function POST(request) {
       return jsonResponse(false, "Project deadline cannot be earlier than start date", null, 400);
     }
 
-    // Convert amounts to integer paise for reliable storage
     const agreedPaise = rupeesToPaise(agreedAmount);
     const budgetPaise = budget !== undefined ? rupeesToPaise(budget) : agreedPaise;
 
@@ -137,10 +130,8 @@ export async function POST(request) {
       progress: 0,
     });
 
-    // Populate client for immediate display
     await newProject.populate("client", "fullName company email");
 
-    // Log Activity
     await logActivity({
       project: newProject._id,
       title: "Project Created",

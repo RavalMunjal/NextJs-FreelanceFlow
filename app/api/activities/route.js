@@ -3,6 +3,7 @@ import Activity from "@/models/Activity";
 import { jsonResponse } from "@/lib/utils";
 
 export const runtime = "nodejs";
+export const dynamic = "force-dynamic";
 
 /**
  * GET /api/activities

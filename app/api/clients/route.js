@@ -3,8 +3,9 @@ import Client from "@/models/Client";
 import { jsonResponse } from "@/lib/utils";
 import { logActivity } from "@/lib/activity";
 
-// Force Node.js runtime for MongoDB connectivity
+// Force Node.js runtime and dynamic handling
 export const runtime = "nodejs";
+export const dynamic = "force-dynamic";
 
 /**
  * GET /api/clients
@@ -19,7 +20,6 @@ export async function GET(request) {
 
     const query = {};
     if (search.trim()) {
-      // Simple regex search on name, company, and email
       query.$or = [
         { fullName: { $regex: search.trim(), $options: "i" } },
         { company: { $regex: search.trim(), $options: "i" } },
