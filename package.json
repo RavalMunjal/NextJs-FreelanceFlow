@@ -2,6 +2,7 @@
   "name": "freelance-flow",
   "version": "1.0.0",
   "private": true,
+  "type": "module",
   "description": "FreelanceFlow — Freelance Project & Client Management System",
   "scripts": {
     "dev": "next dev",
