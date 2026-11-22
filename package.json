@@ -9,7 +9,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "test": "node tests/calculations.test.js",
+    "test": "node tests/workflow.test.js",
     "seed": "node scripts/seed.js"
   },
   "dependencies": {
