@@ -3,25 +3,57 @@
 @tailwind utilities;
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  /* FreelanceFlow Forest Green + Warm Cream + Copper Gold Palette */
+  --primary-forest: #173D32;
+  --primary-forest-dark: #0F2821;
+  --secondary-sage: #477960;
+  --secondary-sage-light: #E6EEE1;
+  --accent-copper: #C58B55;
+  --accent-copper-light: #DFAB7B;
+  --bg-cream: #F7F5EF;
+  --card-bg: #FFFFFF;
+  --text-primary: #24332D;
+  --text-secondary: #737B72;
+  --border-cream: #E4E1D9;
+  --success-bg: #E6EEE1;
+  --success-text: #356451;
+  --warning-color: #B77932;
+  --warning-bg: #FDF5EA;
+  --terracotta-red: #B95449;
+  --terracotta-bg: #FCEEED;
 }
 
 body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+  color: var(--text-primary);
+  background-color: var(--bg-cream);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  min-height: 100vh;
 }
 
-@layer utilities {
-  .text-balance {
-    text-wrap: balance;
-  }
+/* Custom scrollbars for dashboard and tables */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #F7F5EF;
+}
+::-webkit-scrollbar-thumb {
+  background: #C7D8C0;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #477960;
+}
+
+/* Base button animations and card shadows */
+.card-shadow {
+  box-shadow: 0 1px 3px 0 rgba(23, 61, 50, 0.05), 0 1px 2px 0 rgba(23, 61, 50, 0.03);
+}
+
+.card-hover {
+  transition: all 0.2s ease-in-out;
+}
+.card-hover:hover {
+  box-shadow: 0 4px 12px 0 rgba(23, 61, 50, 0.08);
 }
